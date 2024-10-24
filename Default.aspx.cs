@@ -275,5 +275,59 @@ namespace PROG6212_POE_P2_ST10355256
             TextBox11.Text = "";
         }
 
+        public bool ValidateInsertData(string lecturerId, string lecturerName, string lecturerSurname, string month, int year, string programCode, string moduleCode, decimal ratePerHour, int hours, string supportDocument, string notes)
+        {
+            // Add validation logic here.
+            // Example validation: Check if required fields are empty or invalid.
+            if (string.IsNullOrEmpty(lecturerId) || string.IsNullOrEmpty(lecturerName) || string.IsNullOrEmpty(lecturerSurname))
+            {
+                return false; // Validation failed.
+            }
+
+            if (year < 2000 || year > DateTime.Now.Year)
+            {
+                return false; // Invalid year.
+            }
+
+            // Additional validations as required...
+            return true; // Validation passed.
+        }
+
+        public bool InsertClaim(string lecturerId, string lecturerName, string lecturerSurname, string month, int year, string programCode, string moduleCode, decimal ratePerHour, int hours, string supportDocument, string notes)
+        {
+            // First, validate the data before attempting to insert.
+            if (!ValidateInsertData(lecturerId, lecturerName, lecturerSurname, month, year, programCode, moduleCode, ratePerHour, hours, supportDocument, notes))
+            {
+                return false; // Data is invalid; don't insert.
+            }
+
+            // Data is valid; proceed with the insert.
+            string insertQuery = "INSERT INTO Claims (lecturer_id, lecturer_name, lecturer_surname, month, year, program_code, module_code, rate_per_hour, hours, support_document, notes) " +
+                                 "VALUES (@lecturerId, @lecturerName, @lecturerSurname, @month, @year, @programCode, @moduleCode, @ratePerHour, @hours, @supportDocument, @notes)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@lecturerId", lecturerId);
+                    command.Parameters.AddWithValue("@lecturerName", lecturerName);
+                    command.Parameters.AddWithValue("@lecturerSurname", lecturerSurname);
+                    command.Parameters.AddWithValue("@month", month);
+                    command.Parameters.AddWithValue("@year", year);
+                    command.Parameters.AddWithValue("@programCode", programCode);
+                    command.Parameters.AddWithValue("@moduleCode", moduleCode);
+                    command.Parameters.AddWithValue("@ratePerHour", ratePerHour);
+                    command.Parameters.AddWithValue("@hours", hours);
+                    command.Parameters.AddWithValue("@supportDocument", supportDocument);
+                    command.Parameters.AddWithValue("@notes", notes);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    connection.Close();
+
+                    return rowsAffected > 0; // Return true if the insert was successful.
+                }
+            }
+        }
     }
 }
