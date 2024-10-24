@@ -328,6 +328,25 @@ namespace PROG6212_POE_P2_ST10355256
                     return rowsAffected > 0; // Return true if the insert was successful.
                 }
             }
+
         }
+        public bool UpdateClaimStatus(int claimId, string status)
+        {
+            string updateQuery = "UPDATE Claims SET status = @status WHERE claim_id = @claimId";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@claimId", claimId);
+                    command.Parameters.AddWithValue("@status", status);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    return rowsAffected > 0; // Return true if the update was successful.
+                }
+            }
+        }
+
     }
 }
