@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -18,15 +20,16 @@ namespace PROG6212_POE_P2_ST10355256
         protected void Page_Load(object sender, EventArgs e)
         {
             BindClaimsData(); // Populate the GridView on initial load
+            BindDropdowns(); // Populate dropdown lists
         }
 
         private void BindClaimsData()
         {
-
             // Get the entered lecturer_id from the TextBox
             string lecturerId = TextBox1.Text.Trim(); // Update this to your TextBox ID
 
             string query = "SELECT * FROM Claims WHERE lecturer_id = @lecturerId"; // Filter by lecturer_id
+            string sumQuery = "SELECT SUM(total_amount) FROM Claims WHERE lecturer_id = @lecturerId"; // Sum query for total_amount
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -42,6 +45,27 @@ namespace PROG6212_POE_P2_ST10355256
                     ClaimsGridView.DataSource = dataTable;
                     ClaimsGridView.DataBind();
                 }
+
+                // Calculate the sum of total_amount for the entered lecturer_id
+                using (SqlCommand sumCommand = new SqlCommand(sumQuery, connection))
+                {
+                    sumCommand.Parameters.AddWithValue("@lecturerId", lecturerId);
+                    connection.Open();
+
+                    object result = sumCommand.ExecuteScalar(); // Fetch the sum value
+
+                    if (result != DBNull.Value && result != null)
+                    {
+                        decimal totalAmount = Convert.ToDecimal(result);
+                        TotalAmountLabel.Text = $"Total Amount: R{totalAmount.ToString("N2", CultureInfo.CreateSpecificCulture("en-ZA"))}"; // Display total amount in currency format
+                    }
+                    else
+                    {
+                        TotalAmountLabel.Text = "Total Amount: N/A"; // Handle cases where there is no data
+                    }
+
+                    connection.Close();
+                }
             }
         }
 
@@ -50,25 +74,78 @@ namespace PROG6212_POE_P2_ST10355256
         {
             BindClaimsData(); // Call BindClaimsData when the TextBox value changes
         }
+        private void BindDropdowns()
+        {
+            // Populate Month dropdown
+            DropDownListMonth.Items.Clear();
+            DropDownListMonth.Items.Add(new ListItem("January", "1"));
+            DropDownListMonth.Items.Add(new ListItem("February", "2"));
+            DropDownListMonth.Items.Add(new ListItem("March", "3"));
+            DropDownListMonth.Items.Add(new ListItem("April", "4"));
+            DropDownListMonth.Items.Add(new ListItem("May", "5"));
+            DropDownListMonth.Items.Add(new ListItem("June", "6"));
+            DropDownListMonth.Items.Add(new ListItem("July", "7"));
+            DropDownListMonth.Items.Add(new ListItem("August", "8"));
+            DropDownListMonth.Items.Add(new ListItem("September", "9"));
+            DropDownListMonth.Items.Add(new ListItem("October", "10"));
+            DropDownListMonth.Items.Add(new ListItem("November", "11"));
+            DropDownListMonth.Items.Add(new ListItem("December", "12"));
 
-        protected void Button1_Click(object sender, EventArgs e)
+            // Populate Year dropdown (example: from 2000 to the current year)
+            DropDownListYear.Items.Clear();
+            for (int year = 2000; year <= DateTime.Now.Year; year++)
+            {
+                DropDownListYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
+            }
+        }
+            protected void Button1_Click(object sender, EventArgs e)
         {
             // Collect data from form fields
             string lecturerNumber = TextBox1.Text;
             string lecturerName = TextBox2.Text;
             string lecturerSurname = TextBox3.Text;
-            string month = TextBox4.Text;
+            //string month = TextBox4.Text;
+            string month = DropDownListMonth.SelectedValue; // Use selected value from dropdown
+            string year = DropDownListYear.SelectedValue;   // Use selected value from dropdown
             string programCode = TextBox6.Text;
             string module = TextBox7.Text;
-            string ratePerHour = TextBox8.Text;
+            //string ratePerHour = TextBox8.Text;
+
+            // Check required fields (excluding support document and notes)
+            if (string.IsNullOrWhiteSpace(lecturerNumber) ||
+                string.IsNullOrWhiteSpace(lecturerName) ||
+                string.IsNullOrWhiteSpace(lecturerSurname))
+            {
+                SuccessMessageLabel.Text = "Error: Please fill in Lecturer details.";
+                SuccessMessageLabel.ForeColor = System.Drawing.Color.Red;
+                SuccessMessageLabel.Visible = true;
+                return; // Exit the method if required fields are empty
+            }
+
+            if (
+                //string.IsNullOrWhiteSpace(month) ||
+                //string.IsNullOrWhiteSpace(TextBox5.Text) || // Year
+                
+                string.IsNullOrWhiteSpace(programCode) ||
+                string.IsNullOrWhiteSpace(module) ||
+                string.IsNullOrWhiteSpace(TextBox8.Text) ||
+                string.IsNullOrWhiteSpace(TextBox9.Text)) // Hours
+            {
+                SuccessMessageLabel.Text = "Error: All fields except Notes are required to be filled out.";
+                SuccessMessageLabel.ForeColor = System.Drawing.Color.Red;
+                SuccessMessageLabel.Visible = true;
+                return; // Exit the method if required fields are empty
+            }
 
             // Parse year and hours as integers
-            int year, hours;
-
+            //int year, hours;
+            int hours;
+            double ratePerHour;
+            
             // Validate the Year input
-            if (!int.TryParse(TextBox5.Text, out year))
+            if (!double.TryParse(TextBox8.Text, out ratePerHour))
             {
-                SuccessMessageLabel.Text = "Error: Year must be an integer.";
+                SuccessMessageLabel.Text = "Error: ratePerHour must be an a valid number.";
                 SuccessMessageLabel.ForeColor = System.Drawing.Color.Red;
                 SuccessMessageLabel.Visible = true;
                 return; // Exit the method if the year is not valid
@@ -83,30 +160,7 @@ namespace PROG6212_POE_P2_ST10355256
                 return; // Exit the method if hours is not valid
             }
 
-            // Check required fields (excluding support document and notes)
-            if (string.IsNullOrWhiteSpace(lecturerNumber) ||
-                string.IsNullOrWhiteSpace(lecturerName) ||
-                string.IsNullOrWhiteSpace(lecturerSurname))
-            {
-                SuccessMessageLabel.Text = "Error: Please fill in Lecturer details.";
-                SuccessMessageLabel.ForeColor = System.Drawing.Color.Red;
-                SuccessMessageLabel.Visible = true;
-                return; // Exit the method if required fields are empty
-            }
-
-            if (
-                string.IsNullOrWhiteSpace(month) ||
-                string.IsNullOrWhiteSpace(TextBox5.Text) || // Year
-                string.IsNullOrWhiteSpace(programCode) ||
-                string.IsNullOrWhiteSpace(module) ||
-                string.IsNullOrWhiteSpace(ratePerHour) ||
-                string.IsNullOrWhiteSpace(TextBox9.Text)) // Hours
-            {
-                SuccessMessageLabel.Text = "Error: All fields except Support Document and Notes are required to be filled out.";
-                SuccessMessageLabel.ForeColor = System.Drawing.Color.Red;
-                SuccessMessageLabel.Visible = true;
-                return; // Exit the method if required fields are empty
-            }
+            
 
             // Validate Program Code and Module Code length
             if (programCode.Length > 5)
@@ -211,8 +265,8 @@ namespace PROG6212_POE_P2_ST10355256
             //TextBox1.Text = ""; //Lecture id
             //TextBox2.Text = ""; //Lecture name
             //TextBox3.Text = ""; //Lecture surname
-            TextBox4.Text = "";
-            TextBox5.Text = ""; // Year
+            //TextBox4.Text = "";
+            //TextBox5.Text = ""; // Year
             TextBox6.Text = "";
             TextBox7.Text = "";
             TextBox8.Text = "";

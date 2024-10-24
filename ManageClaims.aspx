@@ -39,15 +39,22 @@
                 <asp:BoundField DataField="lecturer_surname" HeaderText="Lecturer Surname"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="month" HeaderText="Month"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="year" HeaderText="Year"  ItemStyle-CssClass="gridview-col-sm"/>
-                <asp:BoundField DataField="program_id" HeaderText="Program Code"  ItemStyle-CssClass="gridview-col-sm"/>
-                <asp:BoundField DataField="module_id" HeaderText="Module"  ItemStyle-CssClass="gridview-col-sm"/>
+                <asp:BoundField DataField="program_code" HeaderText="Program Code"  ItemStyle-CssClass="gridview-col-sm"/>
+                <asp:BoundField DataField="module_code" HeaderText="Module"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="rate_per_hour" HeaderText="Rate per Hour" DataFormatString="R {0:N2}"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="hours" HeaderText="Hours"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="status" HeaderText="Status"  ItemStyle-CssClass="gridview-col-sm"/>               
                 <asp:BoundField DataField="notes" HeaderText="Notes"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="total_amount" HeaderText="Total Amount" DataFormatString="R {0:N2}"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="manager_id" HeaderText="Manager ID"  ItemStyle-CssClass="gridview-col-sm"/>
-                <asp:BoundField DataField="support_document" HeaderText="Support Document"  ItemStyle-CssClass="gridview-col-sm"/>
+                <asp:TemplateField HeaderText="Support Document" ItemStyle-CssClass="gridview-col-sm">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="SupportDocumentLink" runat="server" 
+                            NavigateUrl='<%# Eval("support_document", "~/uploads/{0}") %>' 
+                            Text='<%# System.IO.Path.GetFileName(Eval("support_document").ToString()) %>'
+                            Target="_blank" />
+                    </ItemTemplate>
+                </asp:TemplateField>
                 
             </Columns>
         </asp:GridView>

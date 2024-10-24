@@ -145,8 +145,13 @@ namespace PROG6212_POE_P2_ST10355256
                 ErrorMessageLabel.Text = "Error: Please enter manager details.";
                 return; // Exit the method if the field is empty
             }
-
+           
             string managerId = ManagerIdTextBox.Text; // Retrieve manager_id as string
+            if (managerId.Length > 20)
+            {
+                ErrorMessageLabel.Text = "Error: Manager Number must not exceed 20 characters.";
+                return; // Exit the method if Module Code is too long
+            }
             bool anyClaimUpdated = false; // Track if any claim was updated
             foreach (GridViewRow row in ClaimsGridView.Rows)
             {

@@ -46,10 +46,10 @@ namespace PROG6212_POE_P2_ST10355256
             PopulateDropDown(LectureFilter, "SELECT DISTINCT(lecturer_id) FROM Claims");
 
             // Populate Program IDs
-            PopulateDropDown(ProgramFilter, "SELECT DISTINCT(program_id) FROM Claims");
+            PopulateDropDown(ProgramFilter, "SELECT DISTINCT(program_code) FROM Claims");
 
             // Populate Module IDs
-            PopulateDropDown(ModuleFilter, "SELECT DISTINCT(module_id) FROM Claims");
+            PopulateDropDown(ModuleFilter, "SELECT DISTINCT(module_code) FROM Claims");
 
             // Populate Manager IDs
             PopulateDropDown(ManagerFilter, "SELECT DISTINCT(manager_id) FROM Claims");
@@ -94,13 +94,13 @@ namespace PROG6212_POE_P2_ST10355256
 
             if (!string.IsNullOrEmpty(programId))
             {
-                query += " AND program_id = @programId";
+                query += " AND program_code = @programId";
                 parameters.Add(new SqlParameter("@programId", programId));
             }
 
             if (!string.IsNullOrEmpty(moduleId))
             {
-                query += " AND module_id = @moduleId";
+                query += " AND module_code = @moduleId";
                 parameters.Add(new SqlParameter("@moduleId", moduleId));
             }
 
