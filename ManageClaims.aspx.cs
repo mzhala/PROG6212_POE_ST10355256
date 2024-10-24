@@ -100,6 +100,14 @@ namespace PROG6212_POE_P2_ST10355256
 
         protected void ApproveButton_Click(object sender, EventArgs e)
         {
+            // Check if manager_id is entered
+            if (string.IsNullOrEmpty(ManagerIdTextBox.Text)) // Assuming ManagerIdTextBox is the TextBox for manager ID
+            {
+                ErrorMessageLabel.Text = "Error: Please enter manager details.";
+                return; // Exit the method if the field is empty
+            }
+
+            string managerId = ManagerIdTextBox.Text; // Retrieve manager_id as string
             bool anyClaimUpdated = false; // Track if any claim was updated
             foreach (GridViewRow row in ClaimsGridView.Rows)
             {
@@ -107,7 +115,7 @@ namespace PROG6212_POE_P2_ST10355256
                 if (rb != null && rb.Checked)
                 {
                     int claimId = Convert.ToInt32(rb.Attributes["data-claim-id"]); // Retrieve claim_id from custom attribute
-                    UpdateClaimStatus(claimId, "Approved");
+                    UpdateClaimStatus(claimId, "Approved", managerId); // Pass managerId as a string
                     anyClaimUpdated = true; // Mark that an update has occurred
                 }
             }
@@ -127,8 +135,18 @@ namespace PROG6212_POE_P2_ST10355256
         }
 
 
+
+
         protected void RejectButton_Click(object sender, EventArgs e)
         {
+            // Check if manager_id is entered
+            if (string.IsNullOrEmpty(ManagerIdTextBox.Text)) // Assuming ManagerIdTextBox is the TextBox for manager ID
+            {
+                ErrorMessageLabel.Text = "Error: Please enter manager details.";
+                return; // Exit the method if the field is empty
+            }
+
+            string managerId = ManagerIdTextBox.Text; // Retrieve manager_id as string
             bool anyClaimUpdated = false; // Track if any claim was updated
             foreach (GridViewRow row in ClaimsGridView.Rows)
             {
@@ -136,7 +154,7 @@ namespace PROG6212_POE_P2_ST10355256
                 if (rb != null && rb.Checked)
                 {
                     int claimId = Convert.ToInt32(rb.Attributes["data-claim-id"]); // Retrieve claim_id from custom attribute
-                    UpdateClaimStatus(claimId, "Rejected");
+                    UpdateClaimStatus(claimId, "Rejected", managerId); // Pass managerId as a string
                     anyClaimUpdated = true; // Mark that an update has occurred
                 }
             }
@@ -154,6 +172,8 @@ namespace PROG6212_POE_P2_ST10355256
             // Rebind data to refresh the GridView after rejection
             BindTableData();
         }
+
+
 
         protected void ClearSelectedButton_Click(object sender, EventArgs e)
         {
@@ -177,13 +197,14 @@ namespace PROG6212_POE_P2_ST10355256
             }
         }
 
-        private void UpdateClaimStatus(int claimId, string status)
+        private void UpdateClaimStatus(int claimId, string status, string managerId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE Claims SET status = @status, last_mod_date = GETDATE() WHERE claim_id = @claimId";
+                string query = "UPDATE Claims SET status = @status, manager_id = @managerId, last_mod_date = GETDATE() WHERE claim_id = @claimId";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@status", status);
+                command.Parameters.AddWithValue("@managerId", managerId);
                 command.Parameters.AddWithValue("@claimId", claimId);
 
                 try
@@ -198,5 +219,7 @@ namespace PROG6212_POE_P2_ST10355256
                 }
             }
         }
+
+
     }
 }

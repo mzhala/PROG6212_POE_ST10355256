@@ -6,7 +6,7 @@
         <section class="row" aria-labelledby="aspnetTitle">
             <div class="details">
                 <asp:Label ID="Label1" runat="server" Text="Manager Number:" Width="150px"></asp:Label>
-                <asp:TextBox ID="ManagerNumberTextBox" runat="server" Width="200px"></asp:TextBox>
+                <asp:TextBox ID="ManagerIdTextBox" runat="server" Width="200px"></asp:TextBox>
             </div>
         </section>
 
@@ -41,7 +41,7 @@
                 <asp:BoundField DataField="year" HeaderText="Year"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="program_id" HeaderText="Program Code"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="module_id" HeaderText="Module"  ItemStyle-CssClass="gridview-col-sm"/>
-                <asp:BoundField DataField="rate_per_hour" HeaderText="Rate per Hour" DataFormatString="{0:C2}"  ItemStyle-CssClass="gridview-col-sm"/>
+                <asp:BoundField DataField="rate_per_hour" HeaderText="Rate per Hour" DataFormatString="R {0:N2}"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="hours" HeaderText="Hours"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="status" HeaderText="Status"  ItemStyle-CssClass="gridview-col-sm"/>               
                 <asp:BoundField DataField="notes" HeaderText="Notes"  ItemStyle-CssClass="gridview-col-sm"/>

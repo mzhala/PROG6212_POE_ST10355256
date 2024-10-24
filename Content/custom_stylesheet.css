@@ -36,8 +36,7 @@ input[type="text"] {
 }
 
 .gridview-col-sm {
-    padding-left: 0px; /* Adjust left padding to increase space between columns */
-    padding-right: 90px;
+    
     font-size:14px;
 }
 
@@ -46,7 +45,7 @@ input[type="text"] {
     padding-right: 20px;
 }
 
-.gridview-col- {
+.gridview-col-lg {
     padding-left: 20px; /* Adjust left padding to increase space between columns */
     padding-right: 20px;
 }
@@ -59,7 +58,8 @@ input[type="text"] {
 
 /* General styling for the GridView */
 .gridview-table {
-    width: 100%;
+    width: 1800px;
+    table-layout: fixed;
     border-collapse: collapse; /* Ensures grid lines are continuous */
 }
 

@@ -48,7 +48,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Lecturer Claims </a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/ManageClaims">Manage Claims</a></li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Historical Claims</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/ClaimStatusTracker">Claim Status Tracker</a></li>
                     </ul>
                 </div>
             </div>

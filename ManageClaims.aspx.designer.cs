@@ -24,13 +24,13 @@ namespace PROG6212_POE_P2_ST10355256
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// ManagerNumberTextBox control.
+        /// ManagerIdTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ManagerNumberTextBox;
+        protected global::System.Web.UI.WebControls.TextBox ManagerIdTextBox;
 
         /// <summary>
         /// ErrorMessageLabel control.
