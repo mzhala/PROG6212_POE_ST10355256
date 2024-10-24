@@ -1,0 +1,29 @@
+
+/* Style for <p > elements */
+p {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    padding-bottom: 5px;
+}
+/* Style for <asp:TextBox> elements (targeting input type) */
+input[type="text"] {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style for .col-md-2 class */
+.col-md-2 {
+    margin-bottom: 5px;
+}
+
+.details {
+    margin-bottom: 5px;
+}
+
+.col-md-2 {
+    flex: 0 0 auto;
+    width: 14%;
+}
