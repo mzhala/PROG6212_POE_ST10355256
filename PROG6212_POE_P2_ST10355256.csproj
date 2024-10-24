@@ -125,6 +125,10 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="MSSQL_Preloads\Preload_1.sql" />
+    <Content Include="MSSQL_Preloads\Preload_2.sql" />
+    <Content Include="MSSQL_Preloads\Preload_3.sql" />
+    <Content Include="MSSQL_Preloads\Preload_4.sql" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
