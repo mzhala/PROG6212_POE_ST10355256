@@ -30,7 +30,7 @@
             <asp:CheckBox ID="StatusPending" runat="server" Text="Pending" />
             <asp:CheckBox ID="StatusRejected" runat="server" Text="Rejected" />
 
-            <asp:Button ID="FilterButton" runat="server" Text="Filter" OnClick="FilterButton_Click" CssClass="btn btn-secondary" />
+            <asp:Button ID="FilterButton" runat="server" Text="Apply Filters" OnClick="FilterButton_Click" CssClass="btn btn-secondary" />
         </section>
 
         

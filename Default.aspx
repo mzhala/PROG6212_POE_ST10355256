@@ -46,7 +46,8 @@
             </section>
             <section class="col-md-2">
                  <p>Support Document</p>
-                 <asp:TextBox ID="TextBox10" runat="server"></asp:TextBox>
+                <asp:FileUpload ID="FileUpload1" runat="server" />
+                <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
             </section>
             <section class="col-md-2">
                 <p>Notes</p>

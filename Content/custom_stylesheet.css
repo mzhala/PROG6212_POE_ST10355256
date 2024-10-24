@@ -1,4 +1,9 @@
 
+.nav-link.active {
+    background-color: #007bff; /* Change to your preferred active color */
+    color: white; /* Change text color if needed */
+}
+
 /* Style for <p > elements */
 p {
     margin: 0;

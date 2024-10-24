@@ -15,6 +15,33 @@ namespace PROG6212_POE_P2_ST10355256
     {
 
         /// <summary>
+        /// LecturerClaimsNav control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LecturerClaimsNav;
+
+        /// <summary>
+        /// ManageClaimsNav control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ManageClaimsNav;
+
+        /// <summary>
+        /// ClaimStatusTrackerNav control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ClaimStatusTrackerNav;
+
+        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>
