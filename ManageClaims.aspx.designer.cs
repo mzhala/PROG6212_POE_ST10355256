@@ -24,13 +24,22 @@ namespace PROG6212_POE_P2_ST10355256
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// TextBox1 control.
+        /// ManagerNumberTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox ManagerNumberTextBox;
+
+        /// <summary>
+        /// ErrorMessageLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ErrorMessageLabel;
 
         /// <summary>
         /// ClaimsGridView control.
@@ -40,6 +49,15 @@ namespace PROG6212_POE_P2_ST10355256
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView ClaimsGridView;
+
+        /// <summary>
+        /// HiddenFieldSelectedClaimId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldSelectedClaimId;
 
         /// <summary>
         /// ApproveButton control.

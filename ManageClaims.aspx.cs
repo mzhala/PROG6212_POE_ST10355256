@@ -10,8 +10,8 @@ namespace PROG6212_POE_P2_ST10355256
     public partial class ManageClaims : System.Web.UI.Page
     {
         // Connection string can also be retrieved from Web.config
-        //private string connectionString = "Server=localhost;Database=Claims;Integrated Security=True;";
         private string connectionString = ConfigurationManager.ConnectionStrings["ClaimsDBConnectionString"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -23,8 +23,8 @@ namespace PROG6212_POE_P2_ST10355256
         private void BindTableData()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT claim_id, lecturer_id, lecturer_name, lecturer_surname, program_id, module_id, hours, status, claim_date, rate_per_hour, last_mod_date, notes, month, year FROM Claims";
+            { 
+                string query = "SELECT * FROM Claims";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 try
@@ -33,16 +33,28 @@ namespace PROG6212_POE_P2_ST10355256
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
-                    ClaimsGridView.DataSource = dataTable;
-                    ClaimsGridView.DataBind();
+
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        ClaimsGridView.DataSource = dataTable;
+                        ClaimsGridView.DataBind();
+                    }
+                    else
+                    {
+                        ErrorMessageLabel.Text = "No claims found."; // Inform user
+                        ClaimsGridView.DataSource = null; // Clear any previous data
+                        ClaimsGridView.DataBind();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    // Handle exception (logging, user notification, etc.)
+                    // Log error
+                    ErrorMessageLabel.Text = "An error occurred while loading claims.";
                     Console.WriteLine(ex.Message);
                 }
             }
         }
+
 
         protected void ClaimsGridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -59,8 +71,10 @@ namespace PROG6212_POE_P2_ST10355256
             }
         }
 
+
         protected void ApproveButton_Click(object sender, EventArgs e)
         {
+            bool anyClaimUpdated = false; // Track if any claim was updated
             foreach (GridViewRow row in ClaimsGridView.Rows)
             {
                 RadioButton rb = (RadioButton)row.FindControl("SelectClaimRadio");
@@ -68,15 +82,28 @@ namespace PROG6212_POE_P2_ST10355256
                 {
                     int claimId = Convert.ToInt32(rb.Attributes["data-claim-id"]); // Retrieve claim_id from custom attribute
                     UpdateClaimStatus(claimId, "Approved");
-                    break; // Exit the loop after finding the selected row
+                    anyClaimUpdated = true; // Mark that an update has occurred
                 }
             }
+
+            if (anyClaimUpdated)
+            {
+                // Optionally, you could display a success message here
+                ErrorMessageLabel.Text = "Selected claims have been approved.";
+            }
+            else
+            {
+                ErrorMessageLabel.Text = "No claims were selected for approval.";
+            }
+
             // Rebind data to refresh the GridView after approval
             BindTableData();
         }
 
+
         protected void RejectButton_Click(object sender, EventArgs e)
         {
+            bool anyClaimUpdated = false; // Track if any claim was updated
             foreach (GridViewRow row in ClaimsGridView.Rows)
             {
                 RadioButton rb = (RadioButton)row.FindControl("SelectClaimRadio");
@@ -84,12 +111,24 @@ namespace PROG6212_POE_P2_ST10355256
                 {
                     int claimId = Convert.ToInt32(rb.Attributes["data-claim-id"]); // Retrieve claim_id from custom attribute
                     UpdateClaimStatus(claimId, "Rejected");
-                    break; // Exit the loop after finding the selected row
+                    anyClaimUpdated = true; // Mark that an update has occurred
                 }
             }
+
+            if (anyClaimUpdated)
+            {
+                // Optionally, you could display a success message here
+                ErrorMessageLabel.Text = "Selected claims have been rejected.";
+            }
+            else
+            {
+                ErrorMessageLabel.Text = "No claims were selected for rejection.";
+            }
+
             // Rebind data to refresh the GridView after rejection
             BindTableData();
         }
+
 
         private void UpdateClaimStatus(int claimId, string status)
         {
