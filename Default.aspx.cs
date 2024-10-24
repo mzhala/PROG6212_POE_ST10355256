@@ -78,18 +78,18 @@ namespace PROG6212_POE_P2_ST10355256
         {
             // Populate Month dropdown
             DropDownListMonth.Items.Clear();
-            DropDownListMonth.Items.Add(new ListItem("January", "1"));
-            DropDownListMonth.Items.Add(new ListItem("February", "2"));
-            DropDownListMonth.Items.Add(new ListItem("March", "3"));
-            DropDownListMonth.Items.Add(new ListItem("April", "4"));
-            DropDownListMonth.Items.Add(new ListItem("May", "5"));
-            DropDownListMonth.Items.Add(new ListItem("June", "6"));
-            DropDownListMonth.Items.Add(new ListItem("July", "7"));
-            DropDownListMonth.Items.Add(new ListItem("August", "8"));
-            DropDownListMonth.Items.Add(new ListItem("September", "9"));
-            DropDownListMonth.Items.Add(new ListItem("October", "10"));
-            DropDownListMonth.Items.Add(new ListItem("November", "11"));
-            DropDownListMonth.Items.Add(new ListItem("December", "12"));
+            DropDownListMonth.Items.Add(new ListItem("January", "January"));
+            DropDownListMonth.Items.Add(new ListItem("February", "February"));
+            DropDownListMonth.Items.Add(new ListItem("March", "March"));
+            DropDownListMonth.Items.Add(new ListItem("April", "April"));
+            DropDownListMonth.Items.Add(new ListItem("May", "May"));
+            DropDownListMonth.Items.Add(new ListItem("June", "June"));
+            DropDownListMonth.Items.Add(new ListItem("July", "July"));
+            DropDownListMonth.Items.Add(new ListItem("August", "August"));
+            DropDownListMonth.Items.Add(new ListItem("September", "September"));
+            DropDownListMonth.Items.Add(new ListItem("October", "October"));
+            DropDownListMonth.Items.Add(new ListItem("November", "November"));
+            DropDownListMonth.Items.Add(new ListItem("December", "December"));
 
             // Populate Year dropdown (example: from 2000 to the current year)
             DropDownListYear.Items.Clear();
