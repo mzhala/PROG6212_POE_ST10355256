@@ -54,7 +54,7 @@
             </section>
             <section class="col-md-2">
                 <p>Click to Submit</p>
-                <asp:Button ID="Button1" runat="server" Text="Submit Claim" OnClick="Button1_Click" />
+                <asp:Button ID="Button1" runat="server" Text="Submit Claim" OnClick="Button1_Click"  CssClass="btn btn-secondary"/>
             </section>
             <section>
                 <asp:Label ID="SuccessMessageLabel" runat="server" Text="" ForeColor="Green" Visible="false"></asp:Label>

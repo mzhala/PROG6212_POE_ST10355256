@@ -28,6 +28,90 @@ input[type="text"] {
     width: 14%;
 }
 
+.row-container {
+    display: flex; /* Use flexbox layout */
+    flex-wrap: wrap; /* Allow items to wrap if necessary */
+    margin: 5px 0; /* Top and bottom margin of 5px */
+    gap: 5px; /* Spacing between items */
+}
+
+.gridview-col-sm {
+    padding-left: 0px; /* Adjust left padding to increase space between columns */
+    padding-right: 90px;
+    font-size:14px;
+}
+
+.gridview-col-ms {
+    padding-left: 20px; /* Adjust left padding to increase space between columns */
+    padding-right: 20px;
+}
+
+.gridview-col- {
+    padding-left: 20px; /* Adjust left padding to increase space between columns */
+    padding-right: 20px;
+}
+
+.gridview-header {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight:100;
+}
+
+/* General styling for the GridView */
+.gridview-table {
+    width: 100%;
+    border-collapse: collapse; /* Ensures grid lines are continuous */
+}
+
+/* Light grey borders for each cell and column */
+.gridview-table th, .gridview-table td {
+    border: 1px solid lightgrey; /* Light grey borders */
+    /*padding: 8px 10px; /* Adds padding for readability */
+    text-align: left;
+}
+
+/* Optional: Header background */
+.gridview-table th {
+    background-color: white;
+    font-weight: bold;
+}
+
+.btn-outline-black {
+    color: #000; /* Black text color */
+    border-color: #000; /* Black border */
+}
+
+.btn-outline-black:hover {
+    color: #fff; /* White text color on hover */
+    background-color: #000; /* Black background on hover */
+    border-color: #000; /* Black border on hover */
+}
+
+.btn-outline-black:focus,
+.btn-outline-black.focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.5); /* Black focus outline */
+}
+
+.btn-outline-black:disabled,
+.btn-outline-black.disabled {
+    color: #000; /* Disabled text color */
+    background-color: transparent; /* Keep transparent background */
+}
+
+.btn-outline-black:not(:disabled):not(.disabled):active,
+.btn-outline-black:not(:disabled):not(.disabled).active,
+.show > .btn-outline-black.dropdown-toggle {
+    color: #fff; /* White text when active */
+    background-color: #000; /* Black background when active */
+    border-color: #000; /* Black border when active */
+}
+
+.btn-outline-black:not(:disabled):not(.disabled):active:focus,
+.btn-outline-black:not(:disabled):not(.disabled).active:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.5); /* Black shadow when active */
+}
+
+
 /* Custom styles to override Bootstrap container padding */
 .container,
 .container-fluid,

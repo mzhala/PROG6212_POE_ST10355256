@@ -23,8 +23,23 @@ namespace PROG6212_POE_P2_ST10355256
         private void BindTableData()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
-            { 
-                string query = "SELECT * FROM Claims";
+            {
+                string query = "SELECT * FROM Claims WHERE 1=1 AND (";
+
+                // Add filters based on checkbox selection
+                if (PendingCheckBox.Checked)
+                {
+                    query += " status = 'Pending'";
+                }
+                if (RejectedCheckBox.Checked)
+                {
+                    query += " OR status = 'Rejected'";
+                }
+                if (ApprovedCheckBox.Checked)
+                {
+                    query += " OR status = 'Approved'";
+                }
+                query += ")";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 try
@@ -38,21 +53,32 @@ namespace PROG6212_POE_P2_ST10355256
                     {
                         ClaimsGridView.DataSource = dataTable;
                         ClaimsGridView.DataBind();
+                        MessageLabel.Visible = false; // Hide message if claims are found
                     }
                     else
                     {
-                        ErrorMessageLabel.Text = "No claims found."; // Inform user
-                        ClaimsGridView.DataSource = null; // Clear any previous data
+                        ClaimsGridView.DataSource = null; // Clear the GridView if no claims are found
                         ClaimsGridView.DataBind();
+                        MessageLabel.Text = "No claims found.";
+                        MessageLabel.Visible = true; // Show the message
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Log error
-                    ErrorMessageLabel.Text = "An error occurred while loading claims.";
+                    // Handle exception (logging, user notification, etc.)
                     Console.WriteLine(ex.Message);
+                    MessageLabel.Text = "An error occurred while fetching claims: " + ex.Message;
+                    MessageLabel.Visible = true; // Show the error message
+                    ClaimsGridView.DataSource = null; // Clear the GridView in case of an error
+                    ClaimsGridView.DataBind();
                 }
             }
+        }
+
+
+        protected void FilterCheckBoxes_CheckedChanged(object sender, EventArgs e)
+        {
+            BindTableData(); // Rebind the data when any checkbox is checked/unchecked
         }
 
 
@@ -129,6 +155,27 @@ namespace PROG6212_POE_P2_ST10355256
             BindTableData();
         }
 
+        protected void ClearSelectedButton_Click(object sender, EventArgs e)
+        {
+            ClearSelectedClaim();
+            BindTableData(); // Rebind data to refresh the GridView
+        }
+
+        private void ClearSelectedClaim()
+        {
+            // Clear the hidden field value
+            HiddenFieldSelectedClaimId.Value = string.Empty;
+
+            // Deselect all radio buttons in the GridView
+            foreach (GridViewRow row in ClaimsGridView.Rows)
+            {
+                RadioButton rb = (RadioButton)row.FindControl("SelectClaimRadio");
+                if (rb != null)
+                {
+                    rb.Checked = false; // Deselect the radio button
+                }
+            }
+        }
 
         private void UpdateClaimStatus(int claimId, string status)
         {
