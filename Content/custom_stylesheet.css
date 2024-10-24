@@ -27,3 +27,58 @@ input[type="text"] {
     flex: 0 0 auto;
     width: 14%;
 }
+
+/* Custom styles to override Bootstrap container padding */
+.container,
+.container-fluid,
+.container-xxl,
+.container-xl,
+.container-lg,
+.container-md,
+.container-sm {
+    padding-left: 15px; /* Remove left padding */
+    padding-right: 0; /* Remove right padding */
+}
+
+/* If you want to adjust the margins as well, you can add: */
+.container {
+    margin-left: 5px; /* Remove left margin */
+    margin-right: 0; /* Remove right margin */
+}
+
+/* Optionally, if you want to apply different padding at various breakpoints, you can add media queries */
+@media (min-width: 576px) {
+    .container-sm, .container {
+        padding-left: 15px; /* Adjust as needed */
+        padding-right: 0; /* Adjust as needed */
+    }
+}
+
+@media (min-width: 768px) {
+    .container-md, .container-sm, .container {
+        padding-left: 15px; /* Adjust as needed */
+        padding-right: 0; /* Adjust as needed */
+    }
+}
+
+@media (min-width: 992px) {
+    .container-lg, .container-md, .container-sm, .container {
+        padding-left: 15px; /* Adjust as needed */
+        padding-right: 0; /* Adjust as needed */
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-xl, .container-lg, .container-md, .container-sm, .container {
+        padding-left: 15px; /* Adjust as needed */
+        padding-right: 0; /* Adjust as needed */
+    }
+}
+
+@media (min-width: 1400px) {
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+        padding-left: 15px; /* Adjust as needed */
+        padding-right: 0; /* Adjust as needed */
+    }
+}
+
