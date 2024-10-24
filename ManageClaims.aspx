@@ -45,7 +45,7 @@
                 <asp:BoundField DataField="hours" HeaderText="Hours"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="status" HeaderText="Status"  ItemStyle-CssClass="gridview-col-sm"/>               
                 <asp:BoundField DataField="notes" HeaderText="Notes"  ItemStyle-CssClass="gridview-col-sm"/>
-                <asp:BoundField DataField="total_amount" HeaderText="Total Amount" DataFormatString="{0:C2}"  ItemStyle-CssClass="gridview-col-sm"/>
+                <asp:BoundField DataField="total_amount" HeaderText="Total Amount" DataFormatString="R {0:N2}"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="manager_id" HeaderText="Manager ID"  ItemStyle-CssClass="gridview-col-sm"/>
                 <asp:BoundField DataField="support_document" HeaderText="Support Document"  ItemStyle-CssClass="gridview-col-sm"/>
                 

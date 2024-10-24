@@ -15,6 +15,78 @@ namespace PROG6212_POE_P2_ST10355256
     {
 
         /// <summary>
+        /// LectureFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList LectureFilter;
+
+        /// <summary>
+        /// ProgramFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ProgramFilter;
+
+        /// <summary>
+        /// ModuleFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ModuleFilter;
+
+        /// <summary>
+        /// ManagerFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ManagerFilter;
+
+        /// <summary>
+        /// StatusApproved control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox StatusApproved;
+
+        /// <summary>
+        /// StatusPending control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox StatusPending;
+
+        /// <summary>
+        /// StatusRejected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox StatusRejected;
+
+        /// <summary>
+        /// FilterButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button FilterButton;
+
+        /// <summary>
         /// ClaimsGridView control.
         /// </summary>
         /// <remarks>
@@ -22,5 +94,14 @@ namespace PROG6212_POE_P2_ST10355256
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView ClaimsGridView;
+
+        /// <summary>
+        /// TotalAmountLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalAmountLabel;
     }
 }
