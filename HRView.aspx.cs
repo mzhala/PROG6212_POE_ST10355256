@@ -4,6 +4,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Web.UI.WebControls;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Web; // Add this line
+
 
 namespace PROG6212_POE_P2_ST10355256
 {
@@ -14,7 +19,9 @@ namespace PROG6212_POE_P2_ST10355256
             if (!IsPostBack)
             {
                 PopulateFilters(); // Populate dropdown filters on initial load
-                UpdateReportTitle();
+                //UpdateReportTitle();
+                // Hide the Download button initially when the page loads
+                DownloadPdfButton.Visible = false;
             }
         }
 
@@ -39,15 +46,14 @@ namespace PROG6212_POE_P2_ST10355256
 
                 // Populate Month Dropdown
                 MonthFilter.Items.Clear();
-                MonthFilter.Items.Add(new ListItem("All", "")); // Add default option
+                MonthFilter.Items.Add(new System.Web.UI.WebControls.ListItem("All", "")); // Add default option
 
                 // Loop through months and add them with full names
                 for (int i = 1; i <= 12; i++)
                 {
                     string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i); // Get month name
-                    MonthFilter.Items.Add(new ListItem(monthName, monthName)); // Add to dropdown
+                    MonthFilter.Items.Add(new System.Web.UI.WebControls.ListItem(monthName, monthName)); // Add to dropdown
                 }
-
 
                 // Populate Year Dropdown
                 PopulateDropdown(connection, "SELECT DISTINCT year FROM Claims WHERE status = 'approved'", YearFilter, "year");
@@ -57,7 +63,7 @@ namespace PROG6212_POE_P2_ST10355256
         private void PopulateDropdown(SqlConnection connection, string query, DropDownList dropdown, string columnName)
         {
             dropdown.Items.Clear();
-            dropdown.Items.Add(new ListItem("All", ""));
+            dropdown.Items.Add(new System.Web.UI.WebControls.ListItem("All", ""));
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
@@ -65,7 +71,7 @@ namespace PROG6212_POE_P2_ST10355256
                 {
                     while (reader.Read())
                     {
-                        dropdown.Items.Add(new ListItem(reader[columnName].ToString(), reader[columnName].ToString()));
+                        dropdown.Items.Add(new System.Web.UI.WebControls.ListItem(reader[columnName].ToString(), reader[columnName].ToString()));
                     }
                 }
             }
@@ -105,6 +111,16 @@ namespace PROG6212_POE_P2_ST10355256
                         ClaimsGridView.DataSource = ds.Tables[0];
                         ClaimsGridView.DataBind();
 
+                       // Check if there are any rows in the GridView and show or hide the button
+                        if (ClaimsGridView.Rows.Count > 0)
+                        {
+                            DownloadPdfButton.Visible = true;  // Show the button if data is present
+                        }
+                        else
+                        {
+                            DownloadPdfButton.Visible = false; // Hide the button if no data
+                        }
+
                         // Update total amount label with the second result set
                         if (ds.Tables[1].Rows.Count > 0 && ds.Tables[1].Rows[0]["TotalAmount"] != DBNull.Value)
                         {
@@ -127,7 +143,7 @@ namespace PROG6212_POE_P2_ST10355256
             string moduleCode = ModuleCodeFilter.SelectedValue;
             string month = MonthFilter.SelectedValue;
             string year = YearFilter.SelectedValue;
-            string claimid  = ClaimIdFilter.SelectedValue;
+            string claimid = ClaimIdFilter.SelectedValue;
 
             string title = "Contract Monthly Claim Report for ";
 
@@ -145,7 +161,7 @@ namespace PROG6212_POE_P2_ST10355256
                 {
                     title += $" for {month} {year}";
                 }
-                else if(!string.IsNullOrEmpty(month))
+                else if (!string.IsNullOrEmpty(month))
                 {
                     title += $" for {month}";
                 }
@@ -178,5 +194,67 @@ namespace PROG6212_POE_P2_ST10355256
             ReportTitleLabel.Text = title;
         }
 
+        protected void DownloadPdfButton_Click(object sender, EventArgs e)
+        {
+            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+            MemoryStream stream = new MemoryStream();
+            PdfWriter.GetInstance(pdfDoc, stream);
+            pdfDoc.Open();
+
+            // Add the report title
+            Font titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+            Paragraph title = new Paragraph(ReportTitleLabel.Text, titleFont);
+            title.Alignment = Element.ALIGN_CENTER;
+            pdfDoc.Add(title);
+            pdfDoc.Add(new Paragraph("\n"));
+
+            // Add the GridView data
+            PdfPTable table = new PdfPTable(ClaimsGridView.HeaderRow.Cells.Count);
+            table.WidthPercentage = 100;
+
+            // Add table headers
+            foreach (TableCell headerCell in ClaimsGridView.HeaderRow.Cells)
+            {
+                Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+                PdfPCell pdfCell = new PdfPCell(new Phrase(headerCell.Text, headerFont))
+                {
+                    HorizontalAlignment = Element.ALIGN_CENTER,
+                    BackgroundColor = BaseColor.LIGHT_GRAY
+                };
+                table.AddCell(pdfCell);
+            }
+
+            // Add table rows
+            foreach (GridViewRow gridViewRow in ClaimsGridView.Rows)
+            {
+                foreach (TableCell tableCell in gridViewRow.Cells)
+                {
+                    Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+                    PdfPCell pdfCell = new PdfPCell(new Phrase(tableCell.Text, cellFont))
+                    {
+                        HorizontalAlignment = Element.ALIGN_CENTER
+                    };
+                    table.AddCell(pdfCell);
+                }
+            }
+
+            pdfDoc.Add(table);
+            pdfDoc.Add(new Paragraph("\n"));
+
+            // Add the total amount
+            Font totalFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+            Paragraph totalAmount = new Paragraph(TotalAmountLabel.Text, totalFont);
+            totalAmount.Alignment = Element.ALIGN_RIGHT;
+            pdfDoc.Add(totalAmount);
+
+            pdfDoc.Close();
+
+            // Download the PDF
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=HRReport.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.BinaryWrite(stream.ToArray());
+            Response.End();
+        }
     }
 }

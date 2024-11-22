@@ -67,8 +67,14 @@
                 </Columns>
             </asp:GridView>
 
+            <div>
+                <!-- Total Amount Label -->
+                <asp:Label ID="TotalAmountLabel" runat="server" Text="Total Amount: R0.00" Font-Bold="True" />
+            </div>
+            <div>
+                <asp:Button ID="DownloadPdfButton" runat="server" Text="Download Report as PDF" CssClass="btn btn-success" OnClick="DownloadPdfButton_Click" />
+            </div>
             <!-- Total Amount Label -->
-            <asp:Label ID="TotalAmountLabel" runat="server" Text="Total Amount: R0.00" Font-Bold="True" />
         </div>
     </main>
 </asp:Content>
