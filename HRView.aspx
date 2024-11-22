@@ -68,13 +68,71 @@
             </asp:GridView>
 
             <div>
-                <!-- Total Amount Label -->
+              
                 <asp:Label ID="TotalAmountLabel" runat="server" Text="Total Amount: R0.00" Font-Bold="True" />
             </div>
             <div>
                 <asp:Button ID="DownloadPdfButton" runat="server" Text="Download Report as PDF" CssClass="btn btn-success" OnClick="DownloadPdfButton_Click" />
             </div>
-            <!-- Total Amount Label -->
+            
+
+            <h3>Lecturer Details</h3>
+
+            <asp:GridView ID="LecturerGridView" runat="server" AutoGenerateColumns="False" OnRowEditing="LecturerGridView_RowEditing" OnRowUpdating="LecturerGridView_RowUpdating" OnRowCancelingEdit="LecturerGridView_RowCancelingEdit" OnRowDataBound="LecturerGridView_RowDataBound">
+    <Columns>
+        
+       <asp:TemplateField HeaderText="Lecturer ID">
+            <ItemTemplate>
+                <%# Eval("lecturer_id") %> 
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:Label ID="lecturer_id" runat="server" Text='<%# Bind("lecturer_id") %>' />
+
+            </EditItemTemplate>
+        </asp:TemplateField>
+        
+        
+        <asp:TemplateField HeaderText="Name">
+            <ItemTemplate>
+                <%# Eval("name") %>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="name" runat="server" Text='<%# Bind("name") %>' />
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Surname">
+            <ItemTemplate>
+                <%# Eval("surname") %>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="surname" runat="server" Text='<%# Bind("surname") %>' />
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Contact Number">
+            <ItemTemplate>
+                <%# Eval("contactNumber") %>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="contactNumber" runat="server" Text='<%# Bind("contactNumber") %>' />
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Email">
+            <ItemTemplate>
+                <%# Eval("email") %>
+            </ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="email" runat="server" Text='<%# Bind("email") %>' />
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+       
+        <asp:CommandField ShowEditButton="True" ShowCancelButton="True" />
+    </Columns>
+</asp:GridView>
+
         </div>
     </main>
 </asp:Content>

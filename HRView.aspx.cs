@@ -22,6 +22,7 @@ namespace PROG6212_POE_P2_ST10355256
                 //UpdateReportTitle();
                 // Hide the Download button initially when the page loads
                 DownloadPdfButton.Visible = false;
+                LoadLecturers();
             }
         }
 
@@ -256,5 +257,102 @@ namespace PROG6212_POE_P2_ST10355256
             Response.BinaryWrite(stream.ToArray());
             Response.End();
         }
+
+        private void BindGridView()
+        {
+            // fetch data from a database or other data source
+            string connectionString = ConfigurationManager.ConnectionStrings["ClaimsDBConnectionString"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Lecturer_Details", conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                // Bind data to GridView
+                LecturerGridView.DataSource = dt;
+                LecturerGridView.DataBind();
+            }
+        }
+
+        private void LoadLecturers()
+        {
+            // SQL query to fetch lecturer details
+            string query = "SELECT lecturer_id, name, surname, contactNumber, email FROM Lecturer_Details";
+            string connectionString = ConfigurationManager.ConnectionStrings["ClaimsDBConnectionString"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                LecturerGridView.DataSource = dt;
+                LecturerGridView.DataBind();
+            }
+        }
+
+        protected void LecturerGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            LecturerGridView.EditIndex = e.NewEditIndex;
+            LoadLecturers(); // Rebind to show editing controls
+        }
+
+        protected void LecturerGridView_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            // Get the row being edited
+            GridViewRow row = LecturerGridView.Rows[e.RowIndex];
+
+            // Extract the updated values from the TextBoxes
+            string lecturerId = ((Label)row.FindControl("lecturer_id")).Text;
+            string name = ((TextBox)row.FindControl("name")).Text;
+            string surname = ((TextBox)row.FindControl("surname")).Text;
+            string contactNumber = ((TextBox)row.FindControl("contactNumber")).Text;
+            string email = ((TextBox)row.FindControl("email")).Text;
+
+            // Update the database
+            string updateQuery = "UPDATE Lecturer_Details SET name = @name, surname = @surname, contactNumber = @contactNumber, email = @email WHERE lecturer_id = @lecturerId";
+            string connectionString = ConfigurationManager.ConnectionStrings["ClaimsDBConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(updateQuery, connection);
+                command.Parameters.AddWithValue("@lecturerId", lecturerId);
+                command.Parameters.AddWithValue("@name", name);
+                command.Parameters.AddWithValue("@surname", surname);
+                command.Parameters.AddWithValue("@contactNumber", contactNumber);
+                command.Parameters.AddWithValue("@email", email);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+            // Exit edit mode and rebind data
+            LecturerGridView.EditIndex = -1;
+            LoadLecturers(); // Rebind data to refresh the grid
+        }
+
+
+        protected void LecturerGridView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            LecturerGridView.EditIndex = -1; // Exit editing mode
+            LoadLecturers(); // Rebind data
+        }
+
+        protected void LecturerGridView_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            // Check if the row is a data row (not header/footer)
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                // Retrieve the lecturer's name from the second cell (assuming index 1)
+                string lecturerName = e.Row.Cells[1].Text;
+
+                // If the lecturer's name is "John Doe", change the background color of the row
+                if (lecturerName == "John Doe")
+                {
+                    e.Row.BackColor = System.Drawing.Color.Yellow;
+                }
+            }
+        }
+
     }
 }

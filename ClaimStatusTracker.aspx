@@ -34,14 +34,11 @@
             <asp:Button ID="FilterButton" runat="server" Text="Filter" OnClick="FilterButton_Click" CssClass="btn btn-secondary" style="margin-left:25px" />
         </section>
 
-        
-
         <section class="row">
             <asp:GridView ID="ClaimsGridView" runat="server" AutoGenerateColumns="true" 
                 CssClass="table table-bordered" EmptyDataText="No claims found.">
             </asp:GridView>
         </section>
-
         <asp:Label ID="TotalAmountLabel" runat="server" CssClass="total-amount" />
     </main>
 </asp:Content>
