@@ -86,64 +86,64 @@
             <hr />
 
             <asp:GridView ID="LecturerGridView" runat="server" AutoGenerateColumns="False" OnRowEditing="LecturerGridView_RowEditing" OnRowUpdating="LecturerGridView_RowUpdating" OnRowCancelingEdit="LecturerGridView_RowCancelingEdit" OnRowDataBound="LecturerGridView_RowDataBound">
-    <Columns>
+                <Columns>
         
-       <asp:TemplateField HeaderText="Lecturer ID">
-            <ItemTemplate>
-                <%# Eval("lecturer_id") %> 
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:Label ID="lecturer_id" runat="server" Text='<%# Bind("lecturer_id") %>' />
+                   <asp:TemplateField HeaderText="Lecturer ID">
+                        <ItemTemplate>
+                            <%# Eval("lecturer_id") %> 
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:Label ID="lecturer_id" runat="server" Text='<%# Bind("lecturer_id") %>' />
 
-            </EditItemTemplate>
-            <HeaderStyle Width="300px"/>
-        </asp:TemplateField>
+                        </EditItemTemplate>
+                        <HeaderStyle Width="300px"/>
+                    </asp:TemplateField>
         
         
-        <asp:TemplateField HeaderText="Name">
-            <ItemTemplate>
-                <%# Eval("name") %>
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:TextBox ID="name" runat="server" Text='<%# Bind("name") %>' />
-            </EditItemTemplate>
-            <HeaderStyle Width="300px"/>
-        </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Name">
+                        <ItemTemplate>
+                            <%# Eval("name") %>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="name" runat="server" Text='<%# Bind("name") %>' />
+                        </EditItemTemplate>
+                        <HeaderStyle Width="300px"/>
+                    </asp:TemplateField>
 
-        <asp:TemplateField HeaderText="Surname">
-            <ItemTemplate>
-                <%# Eval("surname") %>
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:TextBox ID="surname" runat="server" Text='<%# Bind("surname") %>' />
-            </EditItemTemplate>
-            <HeaderStyle Width="300px"/>
-        </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Surname">
+                        <ItemTemplate>
+                            <%# Eval("surname") %>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="surname" runat="server" Text='<%# Bind("surname") %>' />
+                        </EditItemTemplate>
+                        <HeaderStyle Width="300px"/>
+                    </asp:TemplateField>
 
-        <asp:TemplateField HeaderText="Contact Number">
-            <ItemTemplate>
-                <%# Eval("contactNumber") %>
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:TextBox ID="contactNumber" runat="server" Text='<%# Bind("contactNumber") %>' />
-            </EditItemTemplate>
-            <HeaderStyle Width="300px"/>
-        </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Contact Number">
+                        <ItemTemplate>
+                            <%# Eval("contactNumber") %>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="contactNumber" runat="server" Text='<%# Bind("contactNumber") %>' />
+                        </EditItemTemplate>
+                        <HeaderStyle Width="300px"/>
+                    </asp:TemplateField>
 
-        <asp:TemplateField HeaderText="Email">
-            <ItemTemplate>
-                <%# Eval("email") %>
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:TextBox ID="email" runat="server" Text='<%# Bind("email") %>' />
-            </EditItemTemplate>
-            <HeaderStyle Width="300px"/>
-        </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Email">
+                        <ItemTemplate>
+                            <%# Eval("email") %>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="email" runat="server" Text='<%# Bind("email") %>' />
+                        </EditItemTemplate>
+                        <HeaderStyle Width="300px"/>
+                    </asp:TemplateField>
 
-       
-        <asp:CommandField ShowEditButton="True" ShowCancelButton="True" />
-    </Columns>
-</asp:GridView>
+        
+                    <asp:CommandField ShowEditButton="True" ShowCancelButton="True" />
+                </Columns>
+            </asp:GridView>
 
         </div>
     </main>

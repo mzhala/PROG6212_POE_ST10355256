@@ -19,10 +19,9 @@ namespace PROG6212_POE_P2_ST10355256
             if (!IsPostBack)
             {
                 PopulateFilters(); // Populate dropdown filters on initial load
-                //UpdateReportTitle();
-                // Hide the Download button initially when the page loads
                 DownloadPdfButton.Visible = false;
                 LoadLecturers();
+
             }
         }
 

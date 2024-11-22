@@ -212,7 +212,7 @@ namespace PROG6212_POE_P2_ST10355256
                     // Insert the claim into the database
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
-                        string insertQuery = "INSERT INTO Claims (lecturer_id, month, year, program_code, module_code, rate_per_hour, hours, support_document, notes) VALUES (@lecturerNumber, @lecturerName, @lecturerSurname, @month, @year, @programCode, @module, @ratePerHour, @hours, @supportDocument, @notes)";
+                        string insertQuery = "INSERT INTO Claims (lecturer_id, month, year, program_code, module_code, rate_per_hour, hours, support_document, notes) VALUES (@lecturerNumber, @month, @year, @programCode, @module, @ratePerHour, @hours, @supportDocument, @notes)";
                         using (SqlCommand command = new SqlCommand(insertQuery, connection))
                         {
                             command.Parameters.AddWithValue("@lecturerNumber", lecturerNumber);

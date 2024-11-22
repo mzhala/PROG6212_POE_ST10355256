@@ -166,6 +166,11 @@ input[type="text"] {
     margin-right: 0; /* Remove right margin */
 }
 
+.active {
+    font-weight: bold;
+    color: #f0f0f0;
+    background-color: #0056b3; /* Optional background color */
+}
 
 .btn-auto {
     background-color: white;

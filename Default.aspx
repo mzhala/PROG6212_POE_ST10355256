@@ -5,10 +5,12 @@
     <main>
         <section class="row" aria-labelledby="aspnetTitle">
             <h1 id="aspnetTitle">Lecture Claims Submissions</h1>
+            <div height="50px"></div>
             <div class="details">
-                <asp:Label ID="Label1" runat="server" Text="Lecturer Number:" Width="150px"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text="Lecturer Number:" Height="20px"></asp:Label>
                 <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true" OnTextChanged="TextBox1_TextChanged" Width="200px" />
             </div>
+            <div height="50px"></div>
         </section>
 
         <div class="row">
@@ -53,9 +55,10 @@
                 <asp:Label ID="SuccessMessageLabel" runat="server" Text="" ForeColor="Green" Visible="false"></asp:Label>
             </section>
         </div>
-
+        
         <!-- GridView to display the claims data -->
         <section class="row">
+            <div height="50px"></div>
             <h2>Submitted Claims</h2>
             <asp:GridView ID="ClaimsGridView" runat="server" AutoGenerateColumns="true" 
                 CssClass="table table-bordered" EmptyDataText="No claims found.">
