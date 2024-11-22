@@ -9,14 +9,6 @@
                 <asp:Label ID="Label1" runat="server" Text="Lecturer Number:" Width="150px"></asp:Label>
                 <asp:TextBox ID="TextBox1" runat="server" AutoPostBack="true" OnTextChanged="TextBox1_TextChanged" Width="200px" />
             </div>
-            <div class="details">
-                <asp:Label ID="Label4" runat="server" Text="Lecturer Name:" Width="150px"></asp:Label>
-                <asp:TextBox ID="TextBox2" runat="server" Width="200px"></asp:TextBox>
-            </div>
-            <div class="details">
-                <asp:Label ID="Label5" runat="server" Text="Lecturer Surname:" Width="150px"></asp:Label>
-                <asp:TextBox ID="TextBox3" runat="server" Width="200px"></asp:TextBox>
-            </div>
         </section>
 
         <div class="row">

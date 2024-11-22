@@ -102,8 +102,6 @@ namespace PROG6212_POE_P2_ST10355256
         {
             // Collect data from form fields
             string lecturerNumber = TextBox1.Text;
-            string lecturerName = TextBox2.Text;
-            string lecturerSurname = TextBox3.Text;
             //string month = TextBox4.Text;
             string month = DropDownListMonth.SelectedValue; // Use selected value from dropdown
             string year = DropDownListYear.SelectedValue;   // Use selected value from dropdown
@@ -112,11 +110,9 @@ namespace PROG6212_POE_P2_ST10355256
             //string ratePerHour = TextBox8.Text;
 
             // Check required fields (excluding support document and notes)
-            if (string.IsNullOrWhiteSpace(lecturerNumber) ||
-                string.IsNullOrWhiteSpace(lecturerName) ||
-                string.IsNullOrWhiteSpace(lecturerSurname))
+            if (string.IsNullOrWhiteSpace(lecturerNumber) || lecturerNumber.Length != 5)
             {
-                SuccessMessageLabel.Text = "Error: Please fill in Lecturer details.";
+                SuccessMessageLabel.Text = "Error: Lecture ID incorrect, please enter a valid 5-character ID";
                 SuccessMessageLabel.ForeColor = System.Drawing.Color.Red;
                 SuccessMessageLabel.Visible = true;
                 return; // Exit the method if required fields are empty
@@ -216,12 +212,10 @@ namespace PROG6212_POE_P2_ST10355256
                     // Insert the claim into the database
                     using (SqlConnection connection = new SqlConnection(connectionString))
                     {
-                        string insertQuery = "INSERT INTO Claims (lecturer_id, lecturer_name, lecturer_surname, month, year, program_code, module_code, rate_per_hour, hours, support_document, notes) VALUES (@lecturerNumber, @lecturerName, @lecturerSurname, @month, @year, @programCode, @module, @ratePerHour, @hours, @supportDocument, @notes)";
+                        string insertQuery = "INSERT INTO Claims (lecturer_id, month, year, program_code, module_code, rate_per_hour, hours, support_document, notes) VALUES (@lecturerNumber, @lecturerName, @lecturerSurname, @month, @year, @programCode, @module, @ratePerHour, @hours, @supportDocument, @notes)";
                         using (SqlCommand command = new SqlCommand(insertQuery, connection))
                         {
                             command.Parameters.AddWithValue("@lecturerNumber", lecturerNumber);
-                            command.Parameters.AddWithValue("@lecturerName", lecturerName);
-                            command.Parameters.AddWithValue("@lecturerSurname", lecturerSurname);
                             command.Parameters.AddWithValue("@month", month);
                             command.Parameters.AddWithValue("@year", year);
                             command.Parameters.AddWithValue("@programCode", programCode);
@@ -275,11 +269,11 @@ namespace PROG6212_POE_P2_ST10355256
             TextBox11.Text = "";
         }
 
-        public bool ValidateInsertData(string lecturerId, string lecturerName, string lecturerSurname, string month, int year, string programCode, string moduleCode, decimal ratePerHour, int hours, string supportDocument, string notes)
+        public bool ValidateInsertData(string lecturerId, string month, int year, string programCode, string moduleCode, decimal ratePerHour, int hours, string supportDocument, string notes)
         {
             // Add validation logic here.
             // Example validation: Check if required fields are empty or invalid.
-            if (string.IsNullOrEmpty(lecturerId) || string.IsNullOrEmpty(lecturerName) || string.IsNullOrEmpty(lecturerSurname))
+            if (string.IsNullOrEmpty(lecturerId))
             {
                 return false; // Validation failed.
             }
@@ -293,25 +287,23 @@ namespace PROG6212_POE_P2_ST10355256
             return true; // Validation passed.
         }
 
-        public bool InsertClaim(string lecturerId, string lecturerName, string lecturerSurname, string month, int year, string programCode, string moduleCode, decimal ratePerHour, int hours, string supportDocument, string notes)
+        public bool InsertClaim(string lecturerId, string month, int year, string programCode, string moduleCode, decimal ratePerHour, int hours, string supportDocument, string notes)
         {
             // First, validate the data before attempting to insert.
-            if (!ValidateInsertData(lecturerId, lecturerName, lecturerSurname, month, year, programCode, moduleCode, ratePerHour, hours, supportDocument, notes))
+            if (!ValidateInsertData(lecturerId, month, year, programCode, moduleCode, ratePerHour, hours, supportDocument, notes))
             {
                 return false; // Data is invalid; don't insert.
             }
 
             // Data is valid; proceed with the insert.
-            string insertQuery = "INSERT INTO Claims (lecturer_id, lecturer_name, lecturer_surname, month, year, program_code, module_code, rate_per_hour, hours, support_document, notes) " +
-                                 "VALUES (@lecturerId, @lecturerName, @lecturerSurname, @month, @year, @programCode, @moduleCode, @ratePerHour, @hours, @supportDocument, @notes)";
+            string insertQuery = "INSERT INTO Claims (lecturer_id, month, year, program_code, module_code, rate_per_hour, hours, support_document, notes) " +
+                                 "VALUES (@lecturerId, @month, @year, @programCode, @moduleCode, @ratePerHour, @hours, @supportDocument, @notes)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
                     command.Parameters.AddWithValue("@lecturerId", lecturerId);
-                    command.Parameters.AddWithValue("@lecturerName", lecturerName);
-                    command.Parameters.AddWithValue("@lecturerSurname", lecturerSurname);
                     command.Parameters.AddWithValue("@month", month);
                     command.Parameters.AddWithValue("@year", year);
                     command.Parameters.AddWithValue("@programCode", programCode);
