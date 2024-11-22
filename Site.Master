@@ -55,6 +55,9 @@
                         <li class="nav-item" runat="server" id="ClaimStatusTrackerNav">
                             <a class="nav-link" runat="server" href="~/ClaimStatusTracker">Claim Status Tracker</a>
                         </li>
+                        <li class="nav-item" runat="server" id="Li1">
+                            <a class="nav-link" runat="server" href="~/HRView">HR View</a>
+                        </li>
                     </ul>
 
                 </div>

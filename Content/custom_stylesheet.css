@@ -179,7 +179,12 @@ input[type="text"] {
     color: white;
 }
 
-
+/*Font-Bold="True" Font-Size="Large*/
+.report-title {
+    font-weight: bold;
+    font-size: large; 
+    display: inline-block;
+}
 /* Optionally, if you want to apply different padding at various breakpoints, you can add media queries */
 @media (min-width: 576px) {
     .container-sm, .container {
