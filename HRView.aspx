@@ -89,6 +89,7 @@
                 <asp:Label ID="lecturer_id" runat="server" Text='<%# Bind("lecturer_id") %>' />
 
             </EditItemTemplate>
+            <HeaderStyle Width="300px"/>
         </asp:TemplateField>
         
         
@@ -99,6 +100,7 @@
             <EditItemTemplate>
                 <asp:TextBox ID="name" runat="server" Text='<%# Bind("name") %>' />
             </EditItemTemplate>
+            <HeaderStyle Width="300px"/>
         </asp:TemplateField>
 
         <asp:TemplateField HeaderText="Surname">
@@ -108,6 +110,7 @@
             <EditItemTemplate>
                 <asp:TextBox ID="surname" runat="server" Text='<%# Bind("surname") %>' />
             </EditItemTemplate>
+            <HeaderStyle Width="300px"/>
         </asp:TemplateField>
 
         <asp:TemplateField HeaderText="Contact Number">
@@ -117,6 +120,7 @@
             <EditItemTemplate>
                 <asp:TextBox ID="contactNumber" runat="server" Text='<%# Bind("contactNumber") %>' />
             </EditItemTemplate>
+            <HeaderStyle Width="300px"/>
         </asp:TemplateField>
 
         <asp:TemplateField HeaderText="Email">
@@ -126,6 +130,7 @@
             <EditItemTemplate>
                 <asp:TextBox ID="email" runat="server" Text='<%# Bind("email") %>' />
             </EditItemTemplate>
+            <HeaderStyle Width="300px"/>
         </asp:TemplateField>
 
        
