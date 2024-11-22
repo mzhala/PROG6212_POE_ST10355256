@@ -3,6 +3,11 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <main>
         <h2 id="title">HR View</h2>
+        <div style="height: 10px;"></div>
+        <hr />
+        <h4 style="background-color: #212529; color: white; padding: 10px; border-radius: 2px;">Claims Report</h4>
+
+        <hr />
         <div>
             <!-- Filters Section -->
             <div>
@@ -50,7 +55,7 @@
 
                 <asp:Button ID="FilterButton" runat="server" Text="Generate Report" OnClick="FilterButton_Click" CssClass="btn btn-success" />
             </div>
-            <div style="height: 20px;"></div>
+            <div style="height: 50px;"></div>
 
             <asp:Label ID="ReportTitleLabel" runat="server" class="report-title"/>
 
@@ -75,8 +80,10 @@
                 <asp:Button ID="DownloadPdfButton" runat="server" Text="Download Report as PDF" CssClass="btn btn-success" OnClick="DownloadPdfButton_Click" />
             </div>
             
-
-            <h3>Lecturer Details</h3>
+            <div style="height: 50px;"></div>
+            <hr />
+            <h4 style="background-color: #212529; color: white; padding: 10px; border-radius: 2px;">Lecturer Details</h4>
+            <hr />
 
             <asp:GridView ID="LecturerGridView" runat="server" AutoGenerateColumns="False" OnRowEditing="LecturerGridView_RowEditing" OnRowUpdating="LecturerGridView_RowUpdating" OnRowCancelingEdit="LecturerGridView_RowCancelingEdit" OnRowDataBound="LecturerGridView_RowDataBound">
     <Columns>

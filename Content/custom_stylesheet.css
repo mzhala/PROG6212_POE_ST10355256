@@ -185,6 +185,7 @@ input[type="text"] {
     font-size: large; 
     display: inline-block;
 }
+
 /* Optionally, if you want to apply different padding at various breakpoints, you can add media queries */
 @media (min-width: 576px) {
     .container-sm, .container {
