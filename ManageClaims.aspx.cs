@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -181,6 +183,113 @@ namespace PROG6212_POE_P2_ST10355256
             // Rebind data to refresh the GridView after rejection
             BindTableData();
         }
+
+        protected void AutoUpdateStatusButton_Click(object sender, EventArgs e)
+        {
+            // Check if manager_id is entered
+            if (string.IsNullOrEmpty(ManagerIdTextBox.Text)) // Assuming ManagerIdTextBox is the TextBox for manager ID
+            {
+                ErrorMessageLabel.Text = "Error: Please enter manager details.";
+                return; // Exit the method if the field is empty
+            }
+
+            string managerId = ManagerIdTextBox.Text; // Retrieve manager_id as string
+            bool anyClaimUpdated = false; // Track if any claim was updated
+            StringBuilder resultMessages = new StringBuilder(); // To store all messages
+
+            foreach (GridViewRow row in ClaimsGridView.Rows)
+            {
+                RadioButton rb = (RadioButton)row.FindControl("SelectClaimRadio");
+                if (rb != null && rb.Checked)
+                {
+                    int claimId = Convert.ToInt32(rb.Attributes["data-claim-id"]); // Retrieve claim_id from custom attribute
+
+                    // Call the stored procedure ApproveClaim here and retrieve the message
+                    string message = ExecuteApproveClaim(claimId, managerId); // Execute the stored procedure and get the message
+
+                    // Append the message to the resultMessages, ensuring each message appears on a new line
+                    resultMessages.AppendLine(message);
+
+                    anyClaimUpdated = true; // Mark that an update has occurred
+                }
+            }
+
+            // Display the messages in ErrorMessageLabel
+            if (anyClaimUpdated)
+            {
+                // Display all collected messages
+                ErrorMessageLabel.Text = resultMessages.ToString();
+            }
+            else
+            {
+                ErrorMessageLabel.Text = "No claims were selected for approval.";
+            }
+
+            // Rebind data to refresh the GridView after approval
+            BindTableData();
+        }
+
+        private string ExecuteApproveClaim(int claimId, string managerId)
+        {
+            // Here, you would call the stored procedure ApproveClaim from your database
+            // For the sake of this example, let's assume it returns a string message
+
+            string message = "";
+
+            // Retrieve the necessary details from the claim (program_code, module_code, lecture_id, etc.)
+            // You might need to get these values based on claimId. This is an example of retrieving those values.
+
+            string programCode = "";  // Retrieve the actual program_code for the claim
+            string moduleCode = "";   // Retrieve the actual module_code for the claim
+            string lectureId = "";    // Retrieve the actual lecture_id for the claim
+            decimal ratePerHour = 0;  // Retrieve the actual rate_per_hour for the claim
+
+            // Example query to retrieve the claim details based on claimId
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("SELECT program_code, module_code, lecturer_id, rate_per_hour FROM Claims WHERE claim_id = @claimId", connection))
+                {
+                    command.Parameters.AddWithValue("@claimId", claimId);
+
+                    // Execute the query and fetch the claim details
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            programCode = reader["program_code"].ToString();
+                            moduleCode = reader["module_code"].ToString();
+                            lectureId = reader["lecturer_id"].ToString();
+                            ratePerHour = Convert.ToDecimal(reader["rate_per_hour"]);
+                        }
+                    }
+                }
+            }
+
+            // Now, execute the stored procedure ApproveClaim with all required parameters
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("ApproveClaim", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Add the necessary parameters to the stored procedure
+                    command.Parameters.AddWithValue("@program_code", programCode);
+                    command.Parameters.AddWithValue("@module_code", moduleCode);
+                    command.Parameters.AddWithValue("@lecturer_id", lectureId);
+                    command.Parameters.AddWithValue("@rate_per_hour", ratePerHour);
+                    command.Parameters.AddWithValue("@managerId", managerId);
+                    command.Parameters.AddWithValue("@claim_id", claimId);
+
+                    // Execute and read the output message
+                    message = Convert.ToString(command.ExecuteScalar());
+                }
+            }
+
+            return message;
+        }
+
 
 
 
