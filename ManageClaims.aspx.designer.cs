@@ -42,42 +42,6 @@ namespace PROG6212_POE_P2_ST10355256
         protected global::System.Web.UI.WebControls.Label ErrorMessageLabel;
 
         /// <summary>
-        /// text control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label text;
-
-        /// <summary>
-        /// PendingCheckBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox PendingCheckBox;
-
-        /// <summary>
-        /// RejectedCheckBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox RejectedCheckBox;
-
-        /// <summary>
-        /// ApprovedCheckBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ApprovedCheckBox;
-
-        /// <summary>
         /// MessageLabel control.
         /// </summary>
         /// <remarks>
@@ -130,5 +94,14 @@ namespace PROG6212_POE_P2_ST10355256
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button RejectButton;
+
+        /// <summary>
+        /// AutoUpdateStatusButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AutoUpdateStatusButton;
     }
 }

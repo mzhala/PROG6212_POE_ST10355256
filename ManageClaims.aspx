@@ -11,13 +11,7 @@
         </section>
 
         <asp:Label ID="ErrorMessageLabel" runat="server" ForeColor="Red" />
-        <section class="row-container">
-            <asp:Label ID="text" runat="server"> Show claims that are: </asp:Label>
-            <asp:CheckBox ID="PendingCheckBox" runat="server" Text="Pending" AutoPostBack="true" OnCheckedChanged="FilterCheckBoxes_CheckedChanged" Checked="true" />
-            <asp:CheckBox ID="RejectedCheckBox" runat="server" Text="Rejected" AutoPostBack="true" OnCheckedChanged="FilterCheckBoxes_CheckedChanged" />
-            <asp:CheckBox ID="ApprovedCheckBox" runat="server" Text="Approved" AutoPostBack="true" OnCheckedChanged="FilterCheckBoxes_CheckedChanged" />
-
-        </section>
+        
         <asp:Label ID="MessageLabel" runat="server" ForeColor="Red" Visible="false"></asp:Label>
 
         <asp:GridView ID="ClaimsGridView" runat="server" AutoGenerateColumns="False" 
@@ -64,6 +58,7 @@
             <asp:Button ID="ClearSelectedButton" runat="server" Text="Clear Selected" OnClick="ClearSelectedButton_Click" CssClass="btn btn-secondary"/>
             <asp:Button ID="ApproveButton" runat="server" Text="Approve" OnClick="ApproveButton_Click" CssClass="btn btn-success" />
             <asp:Button ID="RejectButton" runat="server" Text="Reject" OnClick="RejectButton_Click" CssClass="btn btn-danger" />
+            <asp:Button ID="AutoUpdateStatusButton" runat="server" Text="Auto Update Status" OnClick="RejectButton_Click" CssClass="btn-auto" />
         </section>
         
     </main>

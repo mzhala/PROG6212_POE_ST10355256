@@ -24,7 +24,11 @@ namespace PROG6212_POE_P2_ST10355256
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Claims WHERE 1=1 AND (";
+                string query = "SELECT * FROM Claims WHERE status = 'Pending'";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                /*
+                 string query = "SELECT * FROM Claims WHERE 1=1 AND (";
 
                 // Add filters based on checkbox selection
                 if (PendingCheckBox.Checked)
@@ -41,7 +45,7 @@ namespace PROG6212_POE_P2_ST10355256
                 }
                 query += ")";
                 SqlCommand command = new SqlCommand(query, connection);
-
+                 */
                 try
                 {
                     connection.Open();
