@@ -51,24 +51,6 @@ namespace PROG6212_POE_P2_ST10355256
         protected global::System.Web.UI.WebControls.Label MessageLabel;
 
         /// <summary>
-        /// ClaimsGridView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView ClaimsGridView;
-
-        /// <summary>
-        /// HiddenFieldSelectedClaimId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldSelectedClaimId;
-
-        /// <summary>
         /// ClearSelectedButton control.
         /// </summary>
         /// <remarks>
@@ -103,5 +85,23 @@ namespace PROG6212_POE_P2_ST10355256
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button AutoUpdateStatusButton;
+
+        /// <summary>
+        /// ClaimsGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView ClaimsGridView;
+
+        /// <summary>
+        /// HiddenFieldSelectedClaimId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldSelectedClaimId;
     }
 }

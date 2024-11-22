@@ -26,7 +26,7 @@ namespace PROG6212_POE_P2_ST10355256
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Claims WHERE status = 'Pending'";
+                string query = "SELECT *, lecturer_details.name as lecturer_name, lecturer_details.surname as lecturer_surname FROM Claims JOIN lecturer_details ON  Claims.lecturer_id = lecturer_details.lecturer_id WHERE status = 'Pending'";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 /*
@@ -107,9 +107,9 @@ namespace PROG6212_POE_P2_ST10355256
         protected void ApproveButton_Click(object sender, EventArgs e)
         {
             // Check if manager_id is entered
-            if (string.IsNullOrEmpty(ManagerIdTextBox.Text)) // Assuming ManagerIdTextBox is the TextBox for manager ID
+            if (string.IsNullOrEmpty(ManagerIdTextBox.Text) || ManagerIdTextBox.Text.Length != 5) // Assuming ManagerIdTextBox is the TextBox for manager ID
             {
-                ErrorMessageLabel.Text = "Error: Please enter manager details.";
+                ErrorMessageLabel.Text = "Error: ManagerID incorrect, please enter a 5-character ID.";
                 return; // Exit the method if the field is empty
             }
 
@@ -146,16 +146,16 @@ namespace PROG6212_POE_P2_ST10355256
         protected void RejectButton_Click(object sender, EventArgs e)
         {
             // Check if manager_id is entered
-            if (string.IsNullOrEmpty(ManagerIdTextBox.Text)) // Assuming ManagerIdTextBox is the TextBox for manager ID
+            if (string.IsNullOrEmpty(ManagerIdTextBox.Text) || ManagerIdTextBox.Text.Length != 5) // Assuming ManagerIdTextBox is the TextBox for manager ID
             {
-                ErrorMessageLabel.Text = "Error: Please enter manager details.";
+                ErrorMessageLabel.Text = "Error: ManagerID incorrect, please enter a 5-character ID.";
                 return; // Exit the method if the field is empty
             }
            
             string managerId = ManagerIdTextBox.Text; // Retrieve manager_id as string
             if (managerId.Length > 20)
             {
-                ErrorMessageLabel.Text = "Error: Manager Number must not exceed 20 characters.";
+                ErrorMessageLabel.Text = "Error: Manager Number must not exceed 5 characters.";
                 return; // Exit the method if Module Code is too long
             }
             bool anyClaimUpdated = false; // Track if any claim was updated
@@ -187,9 +187,9 @@ namespace PROG6212_POE_P2_ST10355256
         protected void AutoUpdateStatusButton_Click(object sender, EventArgs e)
         {
             // Check if manager_id is entered
-            if (string.IsNullOrEmpty(ManagerIdTextBox.Text)) // Assuming ManagerIdTextBox is the TextBox for manager ID
+            if (string.IsNullOrEmpty(ManagerIdTextBox.Text) || ManagerIdTextBox.Text.Length != 5) // Assuming ManagerIdTextBox is the TextBox for manager ID
             {
-                ErrorMessageLabel.Text = "Error: Please enter manager details.";
+                ErrorMessageLabel.Text = "Error: ManagerID incorrect, please enter a 5-character ID.";
                 return; // Exit the method if the field is empty
             }
 

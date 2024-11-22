@@ -13,7 +13,13 @@
         <asp:Label ID="ErrorMessageLabel" runat="server" ForeColor="Red" />
         
         <asp:Label ID="MessageLabel" runat="server" ForeColor="Red" Visible="false"></asp:Label>
-
+        <div width="5px"></div>
+        <section class="row-container">
+            <asp:Button ID="ClearSelectedButton" runat="server" Text="Clear Selected" OnClick="ClearSelectedButton_Click" CssClass="btn btn-secondary"/>
+            <asp:Button ID="ApproveButton" runat="server" Text="Approve" OnClick="ApproveButton_Click" CssClass="btn btn-success" />
+            <asp:Button ID="RejectButton" runat="server" Text="Reject" OnClick="RejectButton_Click" CssClass="btn btn-danger" />
+            <asp:Button ID="AutoUpdateStatusButton" runat="server" Text="Auto Update Status" OnClick="AutoUpdateStatusButton_Click" CssClass="btn-auto" />
+        </section>
         <asp:GridView ID="ClaimsGridView" runat="server" AutoGenerateColumns="False" 
             OnRowDataBound="ClaimsGridView_RowDataBound" CssClass="gridview-table">
 
@@ -54,12 +60,7 @@
         </asp:GridView>
 
         <asp:HiddenField ID="HiddenFieldSelectedClaimId" runat="server" />
-        <section class="row-container">
-            <asp:Button ID="ClearSelectedButton" runat="server" Text="Clear Selected" OnClick="ClearSelectedButton_Click" CssClass="btn btn-secondary"/>
-            <asp:Button ID="ApproveButton" runat="server" Text="Approve" OnClick="ApproveButton_Click" CssClass="btn btn-success" />
-            <asp:Button ID="RejectButton" runat="server" Text="Reject" OnClick="RejectButton_Click" CssClass="btn btn-danger" />
-            <asp:Button ID="AutoUpdateStatusButton" runat="server" Text="Auto Update Status" OnClick="AutoUpdateStatusButton_Click" CssClass="btn-auto" />
-        </section>
+        
         
     </main>
 

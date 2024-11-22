@@ -1,8 +1,6 @@
 CREATE TABLE Claims(
 	claim_id int identity(1,1) primary key,
-	lecturer_id varchar(20) not null,
-	lecturer_name varchar(30) not null,
-	lecturer_surname varchar(30) not null,
+	lecturer_id varchar(30) not null,
 	manager_id varchar(5),
 	program_code varchar(5) not null,
 	module_code varchar(5) not null,
